@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const AddDataForm = ({ onUpdateChart }) => {
-  const [selectedDataType, setSelectedDataType] = useState('weight');
+const AddDataForm = ({ selectedDataSet, onUpdateChart }) => {
   const [value, setValue] = useState('');
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/???????', {
-        type: selectedDataType,
+      await axios.post('/adddata', {
+        type: selectedDataSet,
         value: parseFloat(value),
       });
-      onUpdateChart(response.data);
       setValue('');
-      navigate.push('/user-home');
+      onUpdateChart();
+      console.log('Data added successfully!');
     } catch (error) {
       console.error('Error adding data:', error);
     }
@@ -24,23 +21,14 @@ const AddDataForm = ({ onUpdateChart }) => {
 
   return (
     <div>
+      <h2>Add Data</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="dataTypeSelect">
-          Select data type:
-          <select
-            id="dataTypeSelect"
-            value={selectedDataType}
-            onChange={(e) => setSelectedDataType(e.target.value)}
-          >
-            <option value="weight">Weight</option>
-            <option value="bloodSugar">Blood Sugar</option>
-            <option value="calorieIntake">Calorie Intake</option>
-          </select>
-        </label>
+        <label htmlFor="addData">Select data type: {selectedDataSet}</label>
         <input
           type="number"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          placeholder={`Enter ${selectedDataSet} value...`}
         />
         <button type="submit">Add Data</button>
       </form>

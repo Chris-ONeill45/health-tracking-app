@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ChooseChartType = () => {
-  return;
+  return <div>select chart type</div>;
 };
 
 export default ChooseChartType;

@@ -16,7 +16,7 @@ const NavMenu = () => {
       {isOpen && (
         <ul className="dropdown-menu">
           <li>
-            <Link to="/setting">Settings</Link>
+            <Link to="/settings">Settings</Link>
           </li>
           <li>
             <Link to="/user-home">Home</Link>
