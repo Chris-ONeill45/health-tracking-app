@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DisplayChart = () => {
-  return;
+  return <div>displal chart</div>;
 };
 
 export default DisplayChart;
