@@ -1,14 +1,24 @@
+// react
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Navigate } from 'react-router-dom';
+// import axios from 'axios';
+// contexts
+import useAuthContext from '../hooks/useAuthContext';
+// hooks
+import useSignup from '../hooks/useSignup';
 
 const CreateUserForm = () => {
+  const { user } = useAuthContext();
+  const { error, isPending, signup } = useSignup();
+
+  const [navigatePath, setNavigatePath] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,92 +30,110 @@ const CreateUserForm = () => {
     const { name, email, password, confirmPassword } = formData;
 
     if (!name || !email || !password || !confirmPassword) {
-      setError('All fields are required');
+      setErrorMessage('All fields are required');
       return;
     }
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setErrorMessage('Passwords do not match');
       return;
     }
-
+    setNavigatePath(`/user-setup/${formData.name}`);
     try {
-      // //send data to BE
-      // const sendNewUser = {
-      //   email,
-      //   dob,
-      //   height,
-      //   displayName,
-      //   UID,
-      //   dataset: [
-      //     {
-      //       label,
-      //       unit,
-      //       entries: [{ measurement, timestamp }],
-      //     },
-      //   ],
-      // };
-      const response = await axios.post('/users', formData);
-      console.log('Registration successful:', response.data);
+      await signup(formData.email, formData.password, formData.name);
     } catch (err) {
-      console.error('Registration failed:', err);
-      setError('Registration failed. Please try again later.');
+      console.log(err);
     }
+
+    setFormData({ name: '', email: '', password: '', confirmPassword: '' });
+
+    // try {
+    //   //send data to BE
+    //   const sendNewUser = {
+    //     email,
+    //     dob,
+    //     height,
+    //     displayName,
+    //     UID,
+    //     dataset: [
+    //       {
+    //         label,
+    //         unit,
+    //         entries: [{ measurement, timestamp }],
+    //       },
+    //     ],
+    //   };
+    //   const response = await axios.post('/users', formData);
+    //   console.log('Registration successful:', response.data);
+    // } catch (err) {
+    //   console.error('Registration failed:', err);
+    //   setError('Registration failed. Please try again later.');
+    // }
   };
 
   return (
-    <div className="registration-form">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">
-            Name:
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-          </label>
+    <div>
+      {user ? (
+        <Navigate to={navigatePath} />
+      ) : (
+        <div className="registration-form">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">
+                Name:
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">
+                Email:
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">
+                Password:
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirmPassword">
+                Confirm Password:
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
+            {!isPending && <button type="submit">Register</button>}
+            {isPending && <button type="button">Loading</button>}
+            {error && <p>{error}</p>}
+          </form>
         </div>
-        <div className="form-group">
-          <label htmlFor="email">
-            Email:
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword">
-            Confirm Password:
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        {error && <div className="error-message">{error}</div>}
-        <button type="submit">Register</button>
-      </form>
+      )}
     </div>
   );
 };

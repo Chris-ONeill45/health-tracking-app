@@ -1,0 +1,50 @@
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: lightsteelblue;
+  padding: 10px;
+}
+
+.nav-bar--wrapper {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.nav-bar--logos,
+.nav-bar--elements {
+  display: inline;
+  padding: 15px;
+}
+.nav-bar--logo,
+.nav-bar--element {
+  text-decoration: none;
+  color: rgb(35, 188, 116);
+}
+.nav-bar--logo {
+  color: blue;
+}
+.nav-bar--element {
+  color: blue;
+}
+.nav-bar--burger {
+  display: none;
+}
+.nav-bar--burger__icon {
+  color: blue;
+}
+
+.active {
+  cursor: pointer;
+  color: rgb(174, 54, 54);
+}
+
+@media screen and (max-width: 600px) {
+  .nav-bar--element {
+    display: none;
+  }
+  .nav-bar--burger {
+    display: inline;
+  }
+}

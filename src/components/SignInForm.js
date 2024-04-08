@@ -1,92 +1,68 @@
+// react
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Footer from './Footer';
+import { Navigate } from 'react-router-dom';
+// axios
+// import axios from 'axios';
+// contexts
+import useAuthContext from '../hooks/useAuthContext';
+// hooks
+import useLogin from '../hooks/useLogin';
 
 const SignInForm = () => {
+  const { user } = useAuthContext();
+  const { error, isPending, login } = useLogin();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const [error, setError] = useState('');
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Server logic??????
-      // Pass server UID from Firebase
-      // Receive
-      // const receive = {
-      //   email,
-      //   dob,
-      //   height,
-      //   displayName,
-      //   UID,
-      //   dataset: [
-      //     {
-      //       label,
-      //       unit,
-      //       entries: [
-      //         { measurement, timestamp },
-      //         { measurement, timestamp },
-      //         { measurement, timestamp },
-      //       ],
-      //     },
-      //     {
-      //       label,
-      //       unit,
-      //       entries: [
-      //         { measurement, timestamp },
-      //         { measurement, timestamp },
-      //         { measurement, timestamp },
-      //       ],
-      //     },
-      //   ],
-      // };
-      const response = await axios.get('/login', formData);
-      console.log('Login successful:', response.data);
+      await login(formData.email, formData.password);
     } catch (err) {
-      console.error('Login failed:', error);
-      setError('Login failed. Please try again.');
+      console.log(err);
     }
+
+    setFormData({
+      email: '',
+      password: '',
+    });
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">
-            Email:
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <button type="submit">Login</button>
-        {error && <div className="error-message">{error}</div>}
-      </form>
+      {user ? (
+        <Navigate to="/user-home" />
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {!isPending && <button type="submit">Log In</button>}
+          {isPending && <button type="button">Loading</button>}
+          {error && <p>{error}</p>}
+        </form>
+      )}
     </div>
   );
 };

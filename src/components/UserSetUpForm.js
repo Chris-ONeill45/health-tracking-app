@@ -1,8 +1,16 @@
+// react
 import React, { useState } from 'react';
 import axios from 'axios';
+// context
+import useAuthContext from '../hooks/useAuthContext';
 
-const UserSetUpForm = ({ name, email, userStatus, setUserStatus }) => {
+// { name, email, userStatus, setUserStatus }
+const UserSetUpForm = ({ userName }) => {
+  const { user } = useAuthContext();
+
   const [formData, setFormData] = useState({
+    displayName: userName,
+    email: user.email,
     dob: '',
     height: '',
     weight: '',
@@ -10,15 +18,33 @@ const UserSetUpForm = ({ name, email, userStatus, setUserStatus }) => {
   });
 
   const handleChange = (e) => {
-    const { value } = e.target;
+    const { value, name } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const newUser = {
+      user: {
+        email: formData.email,
+        dob: formData.dob,
+        height: formData.height,
+        displayName: formData.displayName,
+        uid: user.uid,
+      },
+      dataSet: {
+        label: 'Weight',
+        unit: 'kg',
+      },
+      entry: {
+        measurement: formData.weight,
+        timeStamp: new Date(),
+      },
+    };
+
     try {
-      const response = await axios.post('/api/initialize', formData);
+      const response = await axios.post('/createuser', newUser);
       console.log('Initialization successful:', response.data);
     } catch (error) {
       console.error('Initialization failed:', error);
@@ -27,8 +53,8 @@ const UserSetUpForm = ({ name, email, userStatus, setUserStatus }) => {
 
   return (
     <div>
-      <h2>Welcome, {name}!</h2>
-      <p>Email: {email}</p>
+      <h2>Welcome, {userName}!</h2>
+      <p>Email: {user.email}</p>
 
       <form onSubmit={handleSubmit}>
         <div>
