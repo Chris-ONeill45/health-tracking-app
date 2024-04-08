@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Dashboard from '../components/Dashboard';
+import useAuthContext from '../hooks/useAuthContext';
 import 'chart.js/auto';
 
 const UserHomePage = () => {
-  const [selectedDataSet, setSelectedDataSet] = useState('weight');
+  const { user } = useAuthContext();
+  const [selectedDataSet, setSelectedDataSet] = useState('Weight');
   const [chartData, setChartData] = useState([]);
 
   const handleSelectDataSet = (dataSet) => {
     setSelectedDataSet(dataSet);
   };
 
-  const fetchData = async (dataSet) => {
+  const fetchData = async () => {
     try {
-      const response = await axios.get(`/users${dataSet}`);
-      setChartData(response.data);
+      const response = await axios.get(`/retrieveuser`, {
+        params: { uid: user.uid },
+      });
+      // setChartData(response.data);
+      console.log(response);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
-    fetchData(selectedDataSet);
-  }, [selectedDataSet]);
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const datasets = [
     { value: 'weight', label: 'Weight' },
