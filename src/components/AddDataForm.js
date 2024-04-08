@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddDataForm = ({ selectedDataSet, onUpdateChart }) => {
+const AddDataForm = ({ selectedDataSet, onUpdateChart, onAddData }) => {
   const [value, setValue] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/adddata', {
+      const response = await axios.post('/adddata', {
         type: selectedDataSet,
         value: parseFloat(value),
       });
+      onUpdateChart(response.data);
       setValue('');
-      onUpdateChart();
-      console.log('Data added successfully!');
+      onAddData();
     } catch (error) {
       console.error('Error adding data:', error);
     }
@@ -21,15 +21,17 @@ const AddDataForm = ({ selectedDataSet, onUpdateChart }) => {
 
   return (
     <div>
-      <h2>Add Data</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="addData">Select data type: {selectedDataSet}</label>
-        <input
-          type="number"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder={`Enter ${selectedDataSet} value...`}
-        />
+        <label htmlFor="dataValueInput">
+          Enter {selectedDataSet} value:
+          <input
+            type="number"
+            id="dataValueInput"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder={`Enter ${selectedDataSet} value`}
+          />
+        </label>
         <button type="submit">Add Data</button>
       </form>
     </div>

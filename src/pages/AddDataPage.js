@@ -1,10 +1,10 @@
 import React from 'react';
 import AddDataForm from '../components/AddDataForm';
 
-const AddDataPage = () => {
+const AddDataPage = ({ selectedDataSet }) => {
   return (
     <div>
-      <AddDataForm />
+      <AddDataForm selectedDataSet={selectedDataSet} />
     </div>
   );
 };
