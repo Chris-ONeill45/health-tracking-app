@@ -1,11 +1,13 @@
 // react
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // context
 import useAuthContext from '../hooks/useAuthContext';
 
 // { name, email, userStatus, setUserStatus }
 const UserSetUpForm = ({ userName }) => {
+  const navigate = useNavigate();
   const { user } = useAuthContext();
 
   const [formData, setFormData] = useState({
@@ -49,6 +51,8 @@ const UserSetUpForm = ({ userName }) => {
     } catch (error) {
       console.error('Initialization failed:', error);
     }
+
+    navigate('/user-home');
   };
 
   return (
