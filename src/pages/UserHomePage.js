@@ -15,9 +15,7 @@ const UserHomePage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`/retrieveuser`, {
-        params: { uid: user.uid },
-      });
+      const response = await axios.get(`/retrieveuser/${user.uid}`);
       // setChartData(response.data);
       console.log(response);
     } catch (error) {
