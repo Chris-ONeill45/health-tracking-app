@@ -11,6 +11,7 @@ const AddDataForm = ({ onUpdateChart, onAddData }) => {
     try {
       const response = await axios.post('http://localhost:5050/adddata', {
         uid: user.uid,
+        // dataset: { label: 'Weight', unit: 'kg' }, - this is what we wann do!!!!!!!!
         measurement: parseFloat(value),
         timestamp: new Date(),
       });
