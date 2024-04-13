@@ -38,11 +38,12 @@ const UserSetUpForm = ({ userName }) => {
       dataSet: {
         label: 'Weight',
         unit: 'kg',
+        entries: [{ measurement: formData.weight, timeStamp: new Date() }],
       },
-      entry: {
-        measurement: formData.weight,
-        timeStamp: new Date(),
-      },
+      // entry: {
+      //   measurement: formData.weight,
+      //   timeStamp: new Date(),
+      // },
     };
 
     try {

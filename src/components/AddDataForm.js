@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import useAuthContext from '../hooks/useAuthContext';
 
-const AddDataForm = ({ onUpdateChart, onAddData }) => {
+const AddDataForm = () => {
   const { user } = useAuthContext();
   const [value, setValue] = useState('');
 
@@ -11,14 +11,12 @@ const AddDataForm = ({ onUpdateChart, onAddData }) => {
     try {
       const response = await axios.post('http://localhost:5050/adddata', {
         uid: user.uid,
-        // dataset: { label: 'Weight', unit: 'kg' }, - this is what we wann do!!!!!!!!
+        dataset: { label: 'Weight', unit: 'kg' },
         measurement: parseFloat(value),
         timestamp: new Date(),
       });
-      // onUpdateChart(response.data);
       console.log(response);
       setValue('');
-      onAddData();
     } catch (error) {
       console.error('Error adding data:', error);
     }
