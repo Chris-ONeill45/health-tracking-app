@@ -1,0 +1,17 @@
+.public-page,
+.public-page-header,
+.public-page-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.public-page-header {
+  margin: 8px;
+}
+.public-page-header--logo {
+  width: 200px;
+}
+.public-page-main a {
+  margin: 8px;
+}

@@ -4,12 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // context
 import useAuthContext from '../hooks/useAuthContext';
-
 // { name, email, userStatus, setUserStatus }
 const UserSetUpForm = ({ userName }) => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
-
   const [formData, setFormData] = useState({
     displayName: userName,
     email: user.email,
@@ -18,15 +16,12 @@ const UserSetUpForm = ({ userName }) => {
     weight: '',
     dataset: '',
   });
-
   const handleChange = (e) => {
     const { value, name } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const newUser = {
       user: {
         email: formData.email,
@@ -59,12 +54,23 @@ const UserSetUpForm = ({ userName }) => {
   return (
     <div>
       <h2>Welcome, {userName}!</h2>
-      <p>Email: {user.email}</p>
-
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-entry">
+          <label htmlFor="email">
+            Email
+            <input
+              className="form-readonly"
+              type="email"
+              id="email"
+              name="email"
+              value={user.email}
+              readOnly
+            />
+          </label>
+        </div>
+        <div className="form-entry">
           <label htmlFor="dob">
-            Date of Birth:
+            Date of Birth
             <input
               type="date"
               id="dob"
@@ -74,9 +80,9 @@ const UserSetUpForm = ({ userName }) => {
             />
           </label>
         </div>
-        <div>
+        <div className="form-entry">
           <label htmlFor="height">
-            Height:
+            Height
             <input
               type="text"
               id="height"
@@ -86,9 +92,9 @@ const UserSetUpForm = ({ userName }) => {
             />
           </label>
         </div>
-        <div>
+        <div className="form-entry">
           <label htmlFor="weight">
-            Weight:
+            Weight
             <input
               type="text"
               id="weight"

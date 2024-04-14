@@ -1,62 +1,50 @@
+// styles
+import './styles/app.css';
 // react
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
 // contexts
 import useAuthContext from './hooks/useAuthContext';
-// components
-import RootPage from './pages/RootPage';
-// import NavBar from './components/oldNav/NavBar';
-import NavControl from './components/navbar/NavControl';
-import SignInPage from './pages/SignInPage';
+// layouts
+import RootLayout from './layouts/RootLayout';
+// utils
+import PrivateRoutes from './utils/PrivateRoutes';
+// pages
+import AboutPage from './pages/AboutPage';
 import CreateUserPage from './pages/CreateUserPage';
-// import AboutPage from './pages/AboutPage';
-import UserSetUpPage from './pages/UserSetUpPage';
-import UserHomePage from './pages/UserHomePage';
-// import SettingsPage from './pages/SettingsPage';
-import AddDataPage from './pages/AddDataPage';
-// import AddNewDataSetPage from './pages/AddNewDataSetPage';
 import NotFoundPage from './pages/NotFoundPage';
-import Footer from './components/Footer';
-import './styles/app.css';
+import RootPage from './pages/RootPage';
+import SignInPage from './pages/SignInPage';
+import UserHomePage from './pages/UserHomePage';
+import UserSetUpPage from './pages/UserSetUpPage';
 
 const App = () => {
-  const { authIsReady, user } = useAuthContext();
-
-  // const [loggedInUser, setLoggedInUser] = useState(
-  //   !user ? null : { name: user.displayName, email: user.email }
-  // );
-
+  const { authIsReady } = useAuthContext();
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<RootPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="sign-in" element={<SignInPage />} />
+        <Route path="create-user" element={<CreateUserPage />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="user-setup/:displayName" element={<UserSetUpPage />} />
+          <Route path="user-home" element={<UserHomePage />} />
+          <Route path="settings" element={<UserHomePage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    )
+  );
   return (
     <div className="app">
-      {authIsReady && (
-        <Router>
-          <div className="app--nav">
-            <NavControl />
-          </div>
-          <div className="app--routes">
-            <Routes>
-              <Route index path="/" element={<RootPage />} />
-              <Route path="/sign-in" element={<SignInPage />} />
-              <Route path="/create-user" element={<CreateUserPage />} />
-              {/* <Route path="/about" element={<AboutPage />} /> */}
-              <Route
-                path="/user-setup/:userName"
-                element={user ? <UserSetUpPage /> : <NotFoundPage />}
-              />
-              <Route path="/user-home" element={<UserHomePage />} />
-              {/* <Route path="/settings" element={<SettingsPage />} /> */}
-              <Route path="/add-data" element={<AddDataPage />} />
-              {/* <Route path="/add-new-data-set" element={<AddNewDataSetPage />} /> */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </div>
-          <div className="app--footer">
-            <Footer />
-          </div>
-        </Router>
-      )}
+      {authIsReady && <RouterProvider router={router} />}
     </div>
   );
 };
-
 export default App;

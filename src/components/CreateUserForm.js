@@ -10,7 +10,6 @@ import useSignup from '../hooks/useSignup';
 const CreateUserForm = () => {
   const { user } = useAuthContext();
   const { error, isPending, signup } = useSignup();
-
   const [navigatePath, setNavigatePath] = useState('');
   const [formData, setFormData] = useState({
     name: '',
@@ -19,16 +18,13 @@ const CreateUserForm = () => {
     confirmPassword: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, confirmPassword } = formData;
-
     if (!name || !email || !password || !confirmPassword) {
       setErrorMessage('All fields are required');
       return;
@@ -43,9 +39,7 @@ const CreateUserForm = () => {
     } catch (err) {
       console.log(err);
     }
-
     setFormData({ name: '', email: '', password: '', confirmPassword: '' });
-
     // try {
     //   //send data to BE
     //   const sendNewUser = {
@@ -69,70 +63,65 @@ const CreateUserForm = () => {
     //   setError('Registration failed. Please try again later.');
     // }
   };
-
   return (
     <div>
       {user ? (
         <Navigate to={navigatePath} />
       ) : (
-        <div className="registration-form">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">
-                Name:
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">
-                Email:
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">
-                Password:
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="confirmPassword">
-                Confirm Password:
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-            {errorMessage && (
-              <div className="error-message">{errorMessage}</div>
-            )}
-            {!isPending && <button type="submit">Register</button>}
-            {isPending && <button type="button">Loading</button>}
-            {error && <p>{error}</p>}
-          </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-entry">
+            <label htmlFor="name">
+              Name
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-entry">
+            <label htmlFor="email">
+              Email
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-entry">
+            <label htmlFor="password">
+              Password
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="form-entry">
+            <label htmlFor="confirmPassword">
+              Confirm Password
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {!isPending && <button type="submit">Register</button>}
+          {isPending && <button type="button">Loading</button>}
+          {error && <p>{error}</p>}
+        </form>
       )}
     </div>
   );

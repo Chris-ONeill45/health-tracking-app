@@ -1,6 +1,5 @@
 // react
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 // firebase
 import { signOut } from 'firebase/auth';
 import auth from '../config/firebase';
@@ -8,7 +7,6 @@ import auth from '../config/firebase';
 import useAuthContext from './useAuthContext';
 
 const useLogout = () => {
-  const navigate = useNavigate();
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -26,7 +24,6 @@ const useLogout = () => {
           setIsPending(false);
         }
         setIsPending(false);
-        navigate('/sign-in');
       })
       .catch((err) => {
         if (!isCancelled) {
