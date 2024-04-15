@@ -1,6 +1,4 @@
-// styles
 import './styles/app.css';
-// react
 import React from 'react';
 import {
   createBrowserRouter,
@@ -8,13 +6,9 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-// contexts
 import useAuthContext from './hooks/useAuthContext';
-// layouts
 import RootLayout from './layouts/RootLayout';
-// utils
 import PrivateRoutes from './utils/PrivateRoutes';
-// pages
 import AboutPage from './pages/AboutPage';
 import CreateUserPage from './pages/CreateUserPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -41,6 +35,7 @@ const App = () => {
       </Route>
     )
   );
+
   return (
     <div className="app">
       {authIsReady && <RouterProvider router={router} />}

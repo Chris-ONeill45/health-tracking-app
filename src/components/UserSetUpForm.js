@@ -1,10 +1,8 @@
-// react
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// context
 import useAuthContext from '../hooks/useAuthContext';
-// { name, email, userStatus, setUserStatus }
+
 const UserSetUpForm = ({ userName }) => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -16,10 +14,12 @@ const UserSetUpForm = ({ userName }) => {
     weight: '',
     dataset: '',
   });
+
   const handleChange = (e) => {
     const { value, name } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newUser = {
@@ -35,10 +35,6 @@ const UserSetUpForm = ({ userName }) => {
         unit: 'kg',
         entries: [{ measurement: formData.weight, timeStamp: new Date() }],
       },
-      // entry: {
-      //   measurement: formData.weight,
-      //   timeStamp: new Date(),
-      // },
     };
 
     try {
@@ -104,22 +100,6 @@ const UserSetUpForm = ({ userName }) => {
             />
           </label>
         </div>
-        {/* <div>
-          <label htmlFor="dataset">
-            Predefined Dataset:
-            <select
-              id="dataset"
-              name="dataset"
-              value={formData.dataset}
-              onChange={handleChange}
-            >
-              <option value="">Select a dataset</option>
-              <option value="dataset1">Dataset 1</option>
-              <option value="dataset2">Dataset 2</option>
-              <option value="dataset3">Dataset 3</option>
-            </select>
-          </label>
-        </div> */}
         <button type="submit">Submit</button>
       </form>
     </div>

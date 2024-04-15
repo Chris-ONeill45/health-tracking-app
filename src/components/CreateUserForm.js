@@ -1,10 +1,6 @@
-// react
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-// import axios from 'axios';
-// contexts
 import useAuthContext from '../hooks/useAuthContext';
-// hooks
 import useSignup from '../hooks/useSignup';
 
 const CreateUserForm = () => {
@@ -17,11 +13,13 @@ const CreateUserForm = () => {
     password: '',
     confirmPassword: '',
   });
+
   const [errorMessage, setErrorMessage] = useState('');
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, confirmPassword } = formData;
@@ -29,40 +27,22 @@ const CreateUserForm = () => {
       setErrorMessage('All fields are required');
       return;
     }
+
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
       return;
     }
+
     setNavigatePath(`/user-setup/${formData.name}`);
+
     try {
       await signup(formData.email, formData.password, formData.name);
     } catch (err) {
       console.log(err);
     }
     setFormData({ name: '', email: '', password: '', confirmPassword: '' });
-    // try {
-    //   //send data to BE
-    //   const sendNewUser = {
-    //     email,
-    //     dob,
-    //     height,
-    //     displayName,
-    //     UID,
-    //     dataset: [
-    //       {
-    //         label,
-    //         unit,
-    //         entries: [{ measurement, timestamp }],
-    //       },
-    //     ],
-    //   };
-    //   const response = await axios.post('/users', formData);
-    //   console.log('Registration successful:', response.data);
-    // } catch (err) {
-    //   console.error('Registration failed:', err);
-    //   setError('Registration failed. Please try again later.');
-    // }
   };
+
   return (
     <div>
       {user ? (

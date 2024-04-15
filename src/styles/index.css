@@ -75,11 +75,7 @@ button {
   flex-direction: column;
   min-height: 100vh;
 }
-/* header */
-.root-layout-header {
-  /* border: solid 3px orange; */
-}
-/* nav */
+
 .root-layout nav {
   display: flex;
   justify-content: space-between;

@@ -1,6 +1,4 @@
-// react
 import { useContext } from 'react';
-// contexts
 import { AuthContext } from '../context/authContext';
 
 const useAuthContext = () => {

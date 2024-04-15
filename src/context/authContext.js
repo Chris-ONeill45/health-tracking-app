@@ -1,6 +1,4 @@
-// react
 import React, { createContext, useEffect, useMemo, useReducer } from 'react';
-// firebase
 import { onAuthStateChanged } from 'firebase/auth';
 import auth from '../config/firebase';
 

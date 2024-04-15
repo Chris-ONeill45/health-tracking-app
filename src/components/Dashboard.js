@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import DisplayChart from './DisplayChart';
 import ChooseChartType from './ChooseChartType';
-import ChooseDataSet from './ChooseDataSet';
 import Alert from './Alert';
 
 const Dashboard = ({
-  datasets,
-  selectedDataSet,
-  handleSelectDataSet,
-  chartData,
+  chartType,
   handleSelectChartType,
+  selectedDataSet,
+  chartData,
+  setChartData,
 }) => {
   const [showAlert, setShowAlert] = useState(false);
 
@@ -19,14 +18,15 @@ const Dashboard = ({
 
   return (
     <div>
-      <DisplayChart label="Measurement" units="Units" entries={chartData} />
-      <ChooseChartType onSelectChartType={handleSelectChartType} />
-      <ChooseDataSet
-        datasets={datasets}
-        onSelectDataSet={handleSelectDataSet}
-      />
+      <DisplayChart chartType={chartType} chartData={chartData} />
+      <ChooseChartType setChartType={handleSelectChartType} />
       {showAlert && (
-        <Alert selectedDataSet={selectedDataSet} onClose={handleCloseAlert} />
+        <Alert
+          selectedDataSet={selectedDataSet}
+          onClose={handleCloseAlert}
+          chartData={chartData}
+          setChartData={setChartData}
+        />
       )}
       <button type="button" onClick={() => setShowAlert(true)}>
         Add Data

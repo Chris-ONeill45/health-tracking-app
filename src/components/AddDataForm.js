@@ -2,12 +2,25 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import useAuthContext from '../hooks/useAuthContext';
 
-const AddDataForm = () => {
+const AddDataForm = ({ chartData, setChartData }) => {
   const { user } = useAuthContext();
   const [value, setValue] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const numericValue = parseFloat(value);
+
+    const newData = [...chartData.datasets[0].data, numericValue];
+    const lastSevenEntries = newData.slice(-7);
+    const newChartData = {
+      ...chartData,
+      datasets: [{ ...chartData.datasets[0], data: lastSevenEntries }],
+    };
+
+    setChartData(newChartData);
+    setValue('');
+
     try {
       const response = await axios.post('http://localhost:5050/adddata', {
         uid: user.uid,

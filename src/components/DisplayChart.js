@@ -1,60 +1,32 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
-// import axios from 'axios';
+import { Line, Bar } from 'react-chartjs-2';
 
-const DisplayChart = ({ chartData }) => {
-  // const DisplayChart = ({ label, units }) => {
-  //   const [chartData, setChartData] = useState({
-  //     labels: [],
-  //     datasets: [
-  //       {
-  //         label: `${label} (${units})`,
-  //         data: [],
-  //         fill: false,
-  //         borderColor: 'rgb(75, 192, 192)',
-  //         tension: 0.1,
-  //       },
-  //       // {
-  //       //   label,
-  //       //   data: entries.map((entry) => entry.measurement),
-  //       //   fill: false,
-  //       //   borderColor: 'rgb(75, 192, 192)',
-  //       //   tension: 0.1,
-  //       // },
-  //     ],
-  //   });
+const DisplayChart = ({ chartData, chartType }) => {
+  const maxDataValue = Math.max(...chartData.datasets[0].data);
+  const suggestedMax = maxDataValue + 10;
 
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:5050/adddata');
-  //       const { data } = response;
-  //       const labels = data.map((entry) => entry.timeStamp);
-  //       const measurements = data.map((entry) => entry.measurement);
-  //       setChartData({
-  //         labels,
-  //         datasets: [
-  //           {
-  //             label: `${label} (${units})`,
-  //             data: measurements,
-  //             fill: false,
-  //             borderColor: 'rgb(75, 192, 192)',
-  //             tension: 0.1,
-  //           },
-  //         ],
-  //       });
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
+  const containerStyle = {
+    width: '800px',
+  };
 
-  //   useEffect(() => {
-  //     fetchData();
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, []);
+  const chartOptions = {
+    maintainAspectRatio: true,
+    aspectRatio: 2,
+    scales: {
+      y: {
+        suggestedMin: 0,
+        suggestedMax,
+      },
+    },
+  };
 
   return (
-    <div>
-      <Line data={chartData} />
+    <div style={containerStyle}>
+      {chartType === 'line' ? (
+        <Line data={chartData} options={chartOptions} />
+      ) : (
+        <Bar data={chartData} options={chartOptions} />
+      )}
     </div>
   );
 };

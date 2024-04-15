@@ -1,9 +1,6 @@
-// styles
 import '../styles/public-pages.css';
-// react
 import React from 'react';
 import { Link } from 'react-router-dom';
-// components
 import SignInForm from '../components/SignInForm';
 
 const SignInPage = () => {

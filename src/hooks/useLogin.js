@@ -1,9 +1,6 @@
-// react
 import { useState, useEffect } from 'react';
-// firebase
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import auth from '../config/firebase';
-// contexts
 import useAuthContext from './useAuthContext';
 
 const useLogin = () => {

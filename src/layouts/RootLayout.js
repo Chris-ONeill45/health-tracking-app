@@ -1,13 +1,9 @@
-// react
 import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { ImCross } from 'react-icons/im';
-// contexts
 import useAuthContext from '../hooks/useAuthContext';
-// hooks
 import useLogout from '../hooks/useLogout';
-// components
 import Footer from '../components/Footer';
 
 const RootLayout = () => {
@@ -22,6 +18,7 @@ const RootLayout = () => {
       console.log(err);
     }
   };
+
   return (
     <div className="root-layout">
       <header className="root-layout-header">

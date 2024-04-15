@@ -7,7 +7,7 @@ const UserSetUpPage = () => {
 
   return (
     <div className="user-set-up-form">
-      <UserSetUpForm userName={params.userName} />
+      <UserSetUpForm userName={params.displayName} />
     </div>
   );
 };

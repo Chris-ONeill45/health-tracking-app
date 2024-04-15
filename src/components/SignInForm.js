@@ -1,11 +1,6 @@
-// react
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-// axios
-// import axios from 'axios';
-// contexts
 import useAuthContext from '../hooks/useAuthContext';
-// hooks
 import useLogin from '../hooks/useLogin';
 
 const SignInForm = () => {
@@ -15,8 +10,10 @@ const SignInForm = () => {
     email: '',
     password: '',
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       await login(formData.email, formData.password);
     } catch (err) {
@@ -27,9 +24,11 @@ const SignInForm = () => {
       password: '',
     });
   };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   return (
     <div>
       {user ? (
