@@ -3,7 +3,9 @@ import { Line, Bar } from 'react-chartjs-2';
 
 const DisplayChart = ({ chartData, chartType }) => {
   const maxDataValue = Math.max(...chartData.datasets[0].data);
+  const minDataValue = Math.min(...chartData.datasets[0].data);
   const suggestedMax = maxDataValue + 10;
+  const suggestedMin = minDataValue - 10;
 
   const containerStyle = {
     width: '800px',
@@ -14,11 +16,12 @@ const DisplayChart = ({ chartData, chartType }) => {
     aspectRatio: 2,
     scales: {
       y: {
-        suggestedMin: 0,
+        suggestedMin,
         suggestedMax,
       },
     },
   };
+  console.log('ChartData:', chartData);
 
   return (
     <div style={containerStyle}>

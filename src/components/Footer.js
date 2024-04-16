@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Footer = () => {
-  const authors = ['Nicholas Barfoot', 'James Carrier', 'Chris ONeill'];
+  const authors = ['Nicholas Barfoot', 'James Carrier', "Chris O'Neill"];
 
   return (
     <footer className="footer">

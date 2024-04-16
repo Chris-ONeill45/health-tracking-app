@@ -28,8 +28,7 @@ const UserHomePage = () => {
       );
 
       const formattedData = response.data.datasets[0].entries.map((entry) => {
-        const date = new Date(entry.timestamp);
-        const formattedTimestamp = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        const formattedTimestamp = new Date().toLocaleDateString();
         return {
           timestamp: formattedTimestamp,
           measurement: entry.measurement,

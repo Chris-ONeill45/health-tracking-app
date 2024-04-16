@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import useAuthContext from '../hooks/useAuthContext';
 
-const AddDataForm = ({ chartData, setChartData }) => {
+const AddDataForm = ({ chartData, setChartData, onClose }) => {
   const { user } = useAuthContext();
   const [value, setValue] = useState('');
 
@@ -13,12 +13,17 @@ const AddDataForm = ({ chartData, setChartData }) => {
 
     const newData = [...chartData.datasets[0].data, numericValue];
     const lastSevenEntries = newData.slice(-7);
+
+    const newLabel = [...chartData.labels, new Date().toLocaleDateString()];
+
     const newChartData = {
       ...chartData,
+      labels: newLabel,
       datasets: [{ ...chartData.datasets[0], data: lastSevenEntries }],
     };
 
     setChartData(newChartData);
+    console.log(newChartData);
     setValue('');
 
     try {
@@ -48,7 +53,9 @@ const AddDataForm = ({ chartData, setChartData }) => {
             placeholder="Enter value"
           />
         </label>
-        <button type="submit">Add Data</button>
+        <button type="submit" onClick={onClose}>
+          Add Data
+        </button>
       </form>
     </div>
   );
