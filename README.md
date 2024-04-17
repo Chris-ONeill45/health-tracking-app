@@ -1,4 +1,39 @@
-# Getting Started with Create React App
+## MVP Features
+
+- **User Authentication**: Users can sign up, log in, and securely authenticate their accounts to access the app's features.
+- **Key Health Indicator Tracking**: Track users weight over time.
+- **Progress Monitoring**: Monitor users progress visually over time with line or bar graph.
+
+## Installation
+
+1. Clone the repository
+2. Navigate to the project directory
+3. Install node package dependencies
+4. Start the development server
+   Node & npm are required to be installed on your local system.
+
+## Technologies Used
+
+- **React**: Frontend framework for building user interfaces.
+- **Firebase**: Backend service for user authentication.
+- **Chart.js**: JavaScript library for creating interactive charts and graphs.
+
+## Future Features
+
+- **Key Health Indicator Tracking**: Additional heath indicators a user can track, such as bmi, blood pressure, blood sugar, calarie intake.
+- **Activity Tracking**: Fitness activities such as walking, running, cycling a user can track with metrics such as duration, distance and calories burned.
+- **Custom Tracking**: Allow users to create their own health indicators and activites to track.
+- **Goal Setting**: Allow user to set personal goals for health indicators and activities.
+- **Notifications**: Prompt user to log heath indicators and activities.
+- **Reminders**: Allow user to set reminders to start activities.
+
+## Contributors & Acknowledgements
+
+- Designed and produced by Nicholas Barfoot, James Carrier and Chris O'Neil.
+- Final project for Command Shift bootcamp.
+- Special thanks to the tutors and support staff at Command shift for all their help along the way.
+
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -67,4 +102,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
