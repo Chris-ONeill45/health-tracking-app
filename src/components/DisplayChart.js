@@ -7,10 +7,6 @@ const DisplayChart = ({ chartData, chartType }) => {
   const suggestedMax = maxDataValue + 10;
   const suggestedMin = minDataValue - 10;
 
-  const containerStyle = {
-    width: '800px',
-  };
-
   const chartOptions = {
     maintainAspectRatio: true,
     aspectRatio: 2,
@@ -24,7 +20,7 @@ const DisplayChart = ({ chartData, chartType }) => {
   console.log('ChartData:', chartData);
 
   return (
-    <div style={containerStyle}>
+    <div className="display-chart">
       {chartType === 'line' ? (
         <Line data={chartData} options={chartOptions} />
       ) : (

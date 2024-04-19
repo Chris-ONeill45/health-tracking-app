@@ -10,14 +10,14 @@ const Dashboard = ({
   chartData,
   setChartData,
 }) => {
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
 
   const handleCloseAlert = () => {
     setShowAlert(false);
   };
 
   return (
-    <div>
+    <div className="dashboard">
       <DisplayChart chartType={chartType} chartData={chartData} />
       <ChooseChartType setChartType={handleSelectChartType} />
       {showAlert && (
@@ -28,9 +28,6 @@ const Dashboard = ({
           setChartData={setChartData}
         />
       )}
-      <button type="button" onClick={() => setShowAlert(true)}>
-        Add Data
-      </button>
     </div>
   );
 };

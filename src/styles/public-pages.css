@@ -15,3 +15,10 @@
 .public-page-main a {
   margin: 8px;
 }
+.about-p-header {
+  margin: 5px;
+}
+.about-p {
+  width: 50%;
+  margin: 5px;
+}

@@ -15,7 +15,8 @@ const UserHomePage = () => {
         label: '',
         data: [],
         fill: false,
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgb(0, 0, 255)',
+        backgroundColor: 'rgb(0, 0, 255)',
         tension: 0.1,
       },
     ],
@@ -45,7 +46,8 @@ const UserHomePage = () => {
             label: `${selectedDataSet}`,
             data: measurements,
             fill: false,
-            borderColor: 'rgb(75, 192, 192)',
+            borderColor: 'rgb(0, 0, 255)',
+            backgroundColor: 'rgb(0, 0, 255)',
             tension: 0.1,
           },
         ],
@@ -71,7 +73,7 @@ const UserHomePage = () => {
   ];
 
   return (
-    <div>
+    <div className="user-homepage">
       <Dashboard
         dataChoice={dataChoice}
         chartData={chartData}

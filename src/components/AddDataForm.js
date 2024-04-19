@@ -14,7 +14,10 @@ const AddDataForm = ({ chartData, setChartData, onClose }) => {
     const newData = [...chartData.datasets[0].data, numericValue];
     const lastSevenEntries = newData.slice(-7);
 
-    const newLabel = [...chartData.labels, new Date().toLocaleDateString()];
+    const newLabel = [
+      ...chartData.labels.slice(-6),
+      new Date().toLocaleDateString(),
+    ];
 
     const newChartData = {
       ...chartData,
