@@ -83,6 +83,7 @@ const UserSetUpForm = ({ userName }) => {
               type="text"
               id="height"
               name="height"
+              placeholder="cm"
               value={formData.height}
               onChange={handleChange}
             />
@@ -95,6 +96,7 @@ const UserSetUpForm = ({ userName }) => {
               type="text"
               id="weight"
               name="weight"
+              placeholder="kg"
               value={formData.weight}
               onChange={handleChange}
             />

@@ -30,7 +30,7 @@ const RootLayout = () => {
                 src="health-heart.jpeg"
                 alt="fitness app logo"
               />
-              <h3>Fitness App</h3>
+              <h3>Health Tracking App</h3>
             </NavLink>
           </div>
           <div className="root-layout-links">

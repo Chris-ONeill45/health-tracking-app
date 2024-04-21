@@ -6,7 +6,7 @@ const RootPage = () => {
   return (
     <div className="public-page">
       <header className="public-page-header">
-        <h1>Welcome to Fitness App</h1>
+        <h1>Welcome to Health Tracking App</h1>
         <img
           className="public-page-header--logo"
           src="health-heart.jpeg"
